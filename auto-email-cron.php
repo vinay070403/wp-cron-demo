@@ -193,3 +193,40 @@ function wp_cron_demo_task() {
         'post_type'    => 'book',
     ) );
 }
+
+
+// Custom logger function
+function wp_book_log( $message ) {
+    $log_file = plugin_dir_path( __FILE__ ) . 'log.txt'; // log.txt file plugin folder me banega
+    $time = date("Y-m-d H:i:s"); 
+    $formatted_message = "[{$time}] " . $message . PHP_EOL;
+    file_put_contents($log_file, $formatted_message, FILE_APPEND | LOCK_EX);
+}
+
+// Jab ek book create hoti hai
+function wp_book_created($post_id, $post, $update) {
+    if ($post->post_type == 'book' && !$update) {
+        wp_book_log("New Book Created: {$post->post_title} (ID: {$post_id})");
+    }
+}
+add_action('wp_insert_post', 'wp_book_created', 10, 3);
+
+// Jab ek book update hoti hai
+function wp_book_updated($post_id, $post, $update) {
+    if ($post->post_type == 'book' && $update) {
+        wp_book_log("Book Updated: {$post->post_title} (ID: {$post_id})");
+    }
+}
+add_action('wp_insert_post', 'wp_book_updated', 10, 3);
+
+// Jab shortcode run hota hai
+function wp_book_shortcode($atts) {
+    wp_book_log("Shortcode [wp_book] executed");
+    return "Book shortcode output here...";
+}
+add_shortcode('wp_book', 'wp_book_shortcode');
+
+// Jab cron run hota hai
+add_action('wp_book_cron_event', function() {
+    wp_book_log("Cron Event Triggered: wp_book_cron_event");
+});
