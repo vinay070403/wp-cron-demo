@@ -67,3 +67,22 @@ The original cron event is not modified, only additional tasks are scheduled whe
 
 ⚠️ Note: If Action Scheduler is disabled or WP-Cron is turned off, some background tasks may not run.
 
+
+## Features
+- Register custom post type **Books**
+- Add custom taxonomies (Genre, Author, etc.)
+- Manage book metadata (Publisher, Year, ISBN, etc.)
+- Shortcode to display books
+- Scheduled cron job to handle background tasks
+
+## Installation
+1. Download or clone this repository into your `wp-content/plugins/` directory.
+2. Activate the plugin from the WordPress admin dashboard.
+3. Start adding and managing your books.
+
+## Shortcodes
+- `[wp_books]` → Display a list of books on any page or post.
+
+Example:
+```html
+[wp_books]
