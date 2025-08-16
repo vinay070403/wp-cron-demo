@@ -54,3 +54,16 @@ First release - sends an email automatically every 2 minutes.
 
 1. No UI, runs in the background.
 
+
+## 🕒 Scheduled Actions / Cron Jobs
+
+This plugin uses WordPress Action Scheduler to handle background tasks.
+
+A cron event action_scheduler_run_queue is scheduled automatically.
+
+This ensures queued actions (like background processing, API sync, etc.) run without affecting page load.
+
+The original cron event is not modified, only additional tasks are scheduled when required.
+
+⚠️ Note: If Action Scheduler is disabled or WP-Cron is turned off, some background tasks may not run.
+
